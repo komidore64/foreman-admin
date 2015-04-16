@@ -1,0 +1,54 @@
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Description: 'Avoid methods longer than 30 lines of code.'
+  Max: 30
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/Documentation:
+  Enabled: false # don't require documentation
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/EachWithObject:
+  Enabled: false # people can use inject
+
+Style/FileName:
+  Exclude: ['bin/*']
+
+Style/FormatString:
+  Enabled: false # we use % for i18n
+
+Style/GuardClause:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false # don't require -> for single line lambdas
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+
+Style/Next:
+  Enabled: false # don't enforce next in loops over if/unless
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space
+
+Style/WordArray:
+  Enabled: false # don't enforce usage of %w()
