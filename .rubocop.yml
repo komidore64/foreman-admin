@@ -18,7 +18,7 @@ Style/EachWithObject:
   Enabled: false # people can use inject
 
 Style/FileName:
-  Exclude: ['bin/*']
+  Exclude: ['bin/*','test/fake-scripts/*']
 
 Style/FormatString:
   Enabled: false # we use % for i18n

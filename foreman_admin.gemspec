@@ -18,12 +18,13 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/theforeman/foreman-admin'
 
   spec.files = Dir['{bin,lib}/**/*',
-                   'locale/**/*',
-                   'Gemfile',
-                   'LICENSE',
-                   'Rakefile',
-                   'README.md']
-  # TODO: spec.test_files = stuff
+    'locale/**/*',
+    'Gemfile',
+    'LICENSE',
+    'Rakefile',
+    'README.md']
+
+  spec.test_files = Dir['test/**/*']
 
   spec.name = 'foreman_admin'
   spec.require_paths = ['lib']
@@ -36,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-checkstyle_formatter'
   spec.add_development_dependency 'gettext', '~> 2.0'
+  spec.add_development_dependency 'minitest'
 end
