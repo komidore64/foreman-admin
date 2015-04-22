@@ -1,5 +1,9 @@
 require 'minitest/autorun'
-require 'pry-rescue/minitest' rescue LoadError
+begin
+  require 'pry-rescue/minitest'
+rescue LoadError
+  puts 'pry-rescue not found. skipping...'
+end
 
 require 'foreman_admin'
 
