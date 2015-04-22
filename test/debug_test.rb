@@ -26,7 +26,11 @@ EOF
 
     def teardown
       @command = nil
-      DebugCommand.external_invocation('foreman-debug')
+      DebugCommand.external_invocation(DebugCommand::FOREMAN_DEBUG_PATH)
+    end
+
+    def test_no_options
+      assert_equal(@command.external_command, '/usr/sbin/foreman-debug ')
     end
 
     def test_option_directory

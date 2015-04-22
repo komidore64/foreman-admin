@@ -7,8 +7,9 @@ module ForemanAdmin
   class DebugCommand < ForemanAdmin::ExternalCommand
     UPLOAD_RESPONSE = 'Archive has been uploaded'
     NO_UPLOAD_RESPONSE = 'Skipping archive upload'
+    FOREMAN_DEBUG_PATH = '/usr/sbin/foreman-debug'
 
-    external_invocation 'foreman-debug'
+    external_invocation FOREMAN_DEBUG_PATH
 
     option ['-d', '--directory'],
       'DIR',
