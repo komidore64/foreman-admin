@@ -16,11 +16,11 @@ module ForemanAdmin
       'Directory to place the tarball in (default: /tmp/foreman-XYZ)'
     option ['-g', '--[no-]generic'],
       :flag,
-      'Whether or not to include generic info (CPU, memory, firewall, etc) (default: true)',
+      'Whether or not to include generic info (CPU, memory, firewall, etc)',
       :default => true
     option ['-a', '--[no-]tarball'],
       :flag,
-      'Whether to generate a tarball from the resulting directory (default: true)',
+      'Whether to generate a tarball from the resulting directory',
       :default => true
     option ['-m', '--max-lines'],
       'LINES',
@@ -39,7 +39,7 @@ module ForemanAdmin
       'Verbose mode'
     option ['--[no-]upload'],
       :flag,
-      'Whether to upload archive to rsync://theforeman.org/debug-incoming (default: false)',
+      'Whether to upload archive to rsync://theforeman.org/debug-incoming',
       :default => false
 
     # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
