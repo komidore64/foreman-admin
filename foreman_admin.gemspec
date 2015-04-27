@@ -34,8 +34,12 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'rubocop-checkstyle_formatter'
+
+  unless RUBY_VERSION < '1.9'
+    spec.add_development_dependency 'rubocop'
+    spec.add_development_dependency 'rubocop-checkstyle_formatter'
+  end
+
   spec.add_development_dependency 'gettext', '~> 2.0'
   spec.add_development_dependency 'minitest'
 end

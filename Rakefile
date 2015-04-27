@@ -16,6 +16,9 @@ begin
   end
 rescue LoadError
   puts 'Rubocop not loaded.'
+  task :rubocop do
+    # do nothing
+  end
 end
 
 begin # TODO: remove begin-block once all i18n stuff is in place
