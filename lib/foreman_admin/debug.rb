@@ -7,9 +7,10 @@ module ForemanAdmin
   class DebugCommand < ForemanAdmin::ExternalCommand
     UPLOAD_RESPONSE = 'Archive has been uploaded'
     NO_UPLOAD_RESPONSE = 'Skipping archive upload'
-    FOREMAN_DEBUG_PATH = '/usr/sbin/foreman-debug'
 
-    external_invocation FOREMAN_DEBUG_PATH
+    command_name 'generate-debug'
+    description 'Create a foreman-debug tarball for debugging purposes'
+    external_invocation '/usr/sbin/foreman-debug'
 
     option ['-d', '--directory'],
       'DIR',

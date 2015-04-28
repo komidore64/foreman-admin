@@ -10,7 +10,7 @@ module ForemanAdmin
     end
 
     def command_name
-      self.class.base_invocation
+      self.class.command_name
     end
 
     def self.description(description = nil)

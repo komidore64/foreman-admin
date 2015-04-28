@@ -5,10 +5,20 @@ module ForemanAdmin
       exit
     end
 
-    subcommand 'backup', 'Backup your Foreman server', BackupCommand
-    subcommand 'restore', 'Restore your Foreman server', RestoreCommand
-    subcommand 'generate-debug', 'Create a foreman-debug tarball for debugging purposes', DebugCommand
-    subcommand 'export-tasks', "Export a file containing Foreman's task data", TaskExportCommand
-    subcommand 'update', 'Update your Foreman server', UpdateCommand
+    subcommand BackupCommand.command_name,
+      BackupCommand.description,
+      BackupCommand
+    subcommand RestoreCommand.command_name,
+      RestoreCommand.description,
+      RestoreCommand
+    subcommand DebugCommand.command_name,
+      DebugCommand.description,
+      DebugCommand
+    subcommand TaskExportCommand.command_name,
+      TaskExportCommand.description,
+      TaskExportCommand
+    subcommand UpdateCommand.command_name,
+      UpdateCommand.description,
+      UpdateCommand
   end
 end
