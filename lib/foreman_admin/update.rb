@@ -4,5 +4,10 @@ module ForemanAdmin
   class UpdateCommand < ForemanAdmin::Command
     command_name 'update'
     description 'Update your Foreman server'
+    external_invocation '/usb/sbin/foreman-update fancy-style'
+
+    # TODO: any options?
+    #
+    # or parameters?
   end
 end
