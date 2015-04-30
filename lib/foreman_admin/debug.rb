@@ -46,16 +46,17 @@ module ForemanAdmin
     # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def external_command
       args = []
-      args << '-d' << directory if directory
+      args << '-d' << "'#{directory}'" if directory
       args << '-g' unless generic?
       args << '-a' unless tarball?
       args << '-m' << max_lines if max_lines
-      args << '-j' << filter_program if filter_program
+      args << '-j' << "'#{filter_program}'" if filter_program
       args << '-p' if password_patterns?
       args << '-q' if quiet?
       args << '-v' if verbose?
 
-      "#{external_invocation} #{args.join(' ')}"
+      args.unshift(external_invocation)
+      args.join(' ')
     end
     # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 

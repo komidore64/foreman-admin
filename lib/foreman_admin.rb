@@ -4,6 +4,7 @@
 require 'clamp'
 
 require 'foreman_admin/command'
+require 'foreman_admin/external_command'
 require 'foreman_admin/backup'
 require 'foreman_admin/restore'
 require 'foreman_admin/task_export'
