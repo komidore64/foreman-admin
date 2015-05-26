@@ -1,9 +1,18 @@
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/CyclomaticComplexity:
+  Max: 15
+
 Metrics/LineLength:
   Max: 120
 
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 30 lines of code.'
   Max: 30
+
+Metrics/PerceivedComplexity:
+  Max: 15
 
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation

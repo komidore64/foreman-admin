@@ -40,7 +40,6 @@ module ForemanAdmin
       'Whether to upload archive to rsync://theforeman.org/debug-incoming',
       :default => false
 
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def external_command
       args = []
       args << '-d' << "'#{directory}'" if directory
@@ -56,6 +55,5 @@ module ForemanAdmin
       args.unshift(external_invocation)
       args.join(' ')
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   end
 end
