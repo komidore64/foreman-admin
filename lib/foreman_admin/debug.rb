@@ -1,8 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-require 'pty'
-require 'expect'
-
 module ForemanAdmin
   class DebugCommand < ForemanAdmin::ExternalCommand
     UPLOAD_RESPONSE = 'Archive has been uploaded'
@@ -38,12 +35,11 @@ module ForemanAdmin
     option ['-v', '--verbose'],
       :flag,
       'Verbose mode'
-    option ['--[no-]upload'],
+    option ['-u', '--[no-]upload'],
       :flag,
       'Whether to upload archive to rsync://theforeman.org/debug-incoming',
       :default => false
 
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def external_command
       args = []
       args << '-d' << "'#{directory}'" if directory
@@ -54,21 +50,10 @@ module ForemanAdmin
       args << '-p' if password_patterns?
       args << '-q' if quiet?
       args << '-v' if verbose?
+      args << '-u' if upload?
 
       args.unshift(external_invocation)
       args.join(' ')
-    end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-
-    def execute
-      PTY.spawn(external_command) do |p_out, p_in, pid|
-        puts p_out.expect('Do you want to do this now? [y/N]')
-        choice = upload? ? 'y' : 'n'
-        p_in.puts choice
-        puts choice
-        Process.wait(pid)
-        puts upload? ? UPLOAD_RESPONSE : NO_UPLOAD_RESPONSE
-      end
     end
   end
 end

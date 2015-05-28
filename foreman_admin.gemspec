@@ -42,4 +42,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'gettext', '~> 2.0'
   spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'simplecov'
 end
