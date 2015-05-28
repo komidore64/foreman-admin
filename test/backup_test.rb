@@ -1,5 +1,7 @@
 module ForemanAdmin
   class BackupCommandTest < MiniTest::Unit::TestCase
+    include ForemanAdminTestHelpers
+
     def setup
       @command = BackupCommand.new('')
     end

@@ -1,5 +1,7 @@
 module ForemanAdmin
   class UpdateCommandTest < MiniTest::Unit::TestCase
+    include ForemanAdminTestHelpers
+
     def setup
       @command = UpdateCommand.new('')
     end

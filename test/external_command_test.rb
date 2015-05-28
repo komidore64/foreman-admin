@@ -1,5 +1,7 @@
 module ForemanAdmin
   class ExternalCommandTest < MiniTest::Unit::TestCase
+    include ForemanAdminTestHelpers
+
     def setup
       @command = ExternalCommand.new('')
     end
