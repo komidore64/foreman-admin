@@ -3,3 +3,4 @@ Gemfile.local
 .ruby-version
 .ruby-gemset
 coverage
+pkg
