@@ -5,20 +5,22 @@ module ForemanAdmin
       exit
     end
 
-    subcommand BackupCommand.command_name,
-      BackupCommand.description,
-      BackupCommand
-    subcommand RestoreCommand.command_name,
-      RestoreCommand.description,
-      RestoreCommand
+    # TODO: uncomment once these external scripts are in place
+
+    # subcommand BackupCommand.command_name,
+    #   BackupCommand.description,
+    #   BackupCommand
+    # subcommand RestoreCommand.command_name,
+    #   RestoreCommand.description,
+    #   RestoreCommand
     subcommand DebugCommand.command_name,
       DebugCommand.description,
       DebugCommand
     subcommand TaskExportCommand.command_name,
       TaskExportCommand.description,
       TaskExportCommand
-    subcommand UpdateCommand.command_name,
-      UpdateCommand.description,
-      UpdateCommand
+    # subcommand UpdateCommand.command_name,
+    #   UpdateCommand.description,
+    #   UpdateCommand
   end
 end

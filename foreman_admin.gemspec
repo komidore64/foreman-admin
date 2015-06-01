@@ -17,17 +17,15 @@ Gem::Specification.new do |spec|
   spec.summary = 'Foreman administrative actions'
   spec.homepage = 'https://github.com/theforeman/foreman-admin'
 
-  spec.files = Dir['{bin,lib}/**/*',
-    'locale/**/*',
+  spec.files = Dir['{bin,lib,locale}/**/*',
     'Gemfile',
     'LICENSE',
     'Rakefile',
     'README.md']
-
   spec.test_files = Dir['test/**/*']
+  spec.executables << 'foreman-admin'
 
   spec.name = 'foreman_admin'
-  spec.require_paths = ['lib']
   spec.version = ForemanAdmin.version
 
   spec.add_dependency 'clamp'
