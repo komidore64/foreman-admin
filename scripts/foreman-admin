@@ -1,0 +1,183 @@
+#!/usr/bin/env ruby
+# -*- encoding: utf-8 -*-
+
+require 'rubygems'
+require 'clamp'
+
+module ForemanAdmin
+
+  class Command < ::Clamp::Command
+    def self.command_name(name = nil)
+      @command_name = name if name
+      @command_name
+    end
+
+    def command_name
+      self.class.command_name
+    end
+
+    def self.description(description = nil)
+      @description = description if description
+      @description
+    end
+
+    def description
+      self.class.description
+    end
+
+    def execute
+      # override me
+    end
+  end
+
+  class ExternalCommand < Command
+    # The base command that will be executed externally.
+    # Think of this as ARGV[0] of what we're running externally.
+    def self.external_invocation(invocation = nil)
+      @external_invocation = invocation if invocation
+      @external_invocation
+    end
+
+    def external_invocation
+      self.class.external_invocation
+    end
+
+    # The exact assembled command that will be executed externally.
+    # Override this in a child class if you want it have logic.
+    def external_command
+      "#{external_invocation}"
+    end
+
+    def execute
+      puts `#{external_command}`
+    end
+  end
+
+  class BackupCommand < ForemanAdmin::ExternalCommand
+    command_name 'backup'
+    description 'Backup your Foreman server'
+    external_invocation '/usr/sbin/foreman-backup'
+
+    # TODO: any options?
+    #
+    # or parameters?
+  end
+
+  class RestoreCommand < ForemanAdmin::ExternalCommand
+    command_name 'restore'
+    description 'Restore your Foreman server'
+    external_invocation '/usr/sbin/foreman-restore'
+
+    # TODO: any options?
+    #
+    # or parameters?
+  end
+
+  class DebugCommand < ForemanAdmin::ExternalCommand
+    UPLOAD_RESPONSE = 'Archive has been uploaded'
+    NO_UPLOAD_RESPONSE = 'Skipping archive upload'
+
+    command_name 'generate-debug'
+    description 'Create a foreman-debug tarball for debugging purposes'
+    external_invocation '/usr/sbin/foreman-debug'
+
+    option ['-d', '--directory'],
+      'DIR',
+      'Directory to place the tarball in (default: /tmp/foreman-XYZ)'
+    option ['-g', '--[no-]generic'],
+      :flag,
+      'Whether or not to include generic info (CPU, memory, firewall, etc)',
+      :default => true
+    option ['-a', '--[no-]tarball'],
+      :flag,
+      'Whether to generate a tarball from the resulting directory',
+      :default => true
+    option ['-m', '--max-lines'],
+      'LINES',
+      'Maximum lines to keep for each file (default: 5000)'
+    option ['-j', '--filter-program'],
+      'PROGRAM',
+      'Filter with provided program when creating a tarball'
+    option ['-p', '--password-patterns'],
+      :flag,
+      'Print password patterns being filtered out'
+    option ['-q', '--quiet'],
+      :flag,
+      'Quiet mode'
+    option ['-v', '--verbose'],
+      :flag,
+      'Verbose mode'
+    option ['-u', '--[no-]upload'],
+      :flag,
+      'Whether to upload archive to rsync://theforeman.org/debug-incoming',
+      :default => false
+
+    def external_command
+      args = []
+      args << '-d' << "'#{directory}'" if directory
+      args << '-g' unless generic?
+      args << '-a' unless tarball?
+      args << '-m' << max_lines if max_lines
+      args << '-j' << "'#{filter_program}'" if filter_program
+      args << '-p' if password_patterns?
+      args << '-q' if quiet?
+      args << '-v' if verbose?
+      args << '-u' if upload?
+
+      args.unshift(external_invocation)
+      args.join(' ')
+    end
+  end
+
+  class TaskExportCommand < ForemanAdmin::ExternalCommand
+    command_name 'export-tasks'
+    description "Export a file containing Foreman's task data (default: only incomplete tasks are exported)"
+    external_invocation '/usr/sbin/foreman-rake foreman_tasks:export_tasks'
+
+    option ['--all'], :flag, 'Export all tasks (Note: this could take some time)'
+    option ['--export-file'], 'FILENAME', 'Specify the filename.tar.gz archive to export tasks into'
+
+    def external_command
+      args = []
+      args << 'tasks=all' if all?
+      args << "export=#{export_file}" if export_file
+
+      args.unshift(external_invocation)
+      args.join(' ')
+    end
+  end
+
+  class UpdateCommand < ForemanAdmin::ExternalCommand
+    command_name 'update'
+    description 'Update your Foreman server'
+    external_invocation '/usb/sbin/foreman-update fancy-style'
+
+    # TODO: any options?
+    #
+    # or parameters?
+  end
+
+  class MainCommand < ForemanAdmin::Command
+
+    # TODO: uncomment once these external scripts are in place
+    # subcommand BackupCommand.command_name,
+    #   BackupCommand.description,
+    #   BackupCommand
+    # subcommand RestoreCommand.command_name,
+    #   RestoreCommand.description,
+    #   RestoreCommand
+    subcommand DebugCommand.command_name,
+      DebugCommand.description,
+      DebugCommand
+    subcommand TaskExportCommand.command_name,
+      TaskExportCommand.description,
+      TaskExportCommand
+    # subcommand UpdateCommand.command_name,
+    #   UpdateCommand.description,
+    #   UpdateCommand
+  end
+end
+
+if __FILE__ == $0
+  ForemanAdmin::MainCommand.run
+end
